@@ -1,12 +1,14 @@
-# PRISM Property Intelligence MCP
+# PRISM · AI Property Valuation Agent
 
-Property evidence infrastructure for PRISM. The current hackathon demo covers residential apartments in **Baner and Kharadi, Pune**, with a Next.js evidence desk backed by the actual Go MCP and Rust matching worker. National jurisdiction routing remains available for future expansion; it does not imply nationwide source coverage.
+PRISM is an AI agent for property valuation and lender review. It uses its own custom Property Intelligence MCP to find and reconcile evidence, then is designed to call a valuation model and prepare a source-linked report for a lender.
+
+The working prototype covers the evidence layer for residential apartments in **Baner and Kharadi, Pune**. The Next.js evidence desk calls the Go MCP through a Python bridge, with Rust handling record matching. The autonomous agent workflow, Laya evidence scoring and valuation model are planned stages. National jurisdiction routing supports expansion as new local sources are integrated.
 
 Start with [the focused demo guide](docs/PUNE_DEMO.md) for setup, the presentation sequence, Firecrawl configuration and data limits.
 
 Hero Housing Fintech Challenge, Problem Statement 1: [solution deck (PDF)](submission/PRISM%20-%20Hero%20Housing%20Solution%20Deck.pdf) · [editable PowerPoint](submission/PRISM%20-%20Hero%20Housing%20Solution%20Deck.pptx).
 
-## Current implementation
+## Current implementation · Custom evidence MCP
 
 - Official Go MCP SDK v1.8.0, local stdio transport and typed structured results.
 - All 28 states and 8 union territories in the jurisdiction registry, with supported aliases.

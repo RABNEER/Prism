@@ -26,7 +26,7 @@ pdfmetrics.registerFont(TTFont("AB", FONT_PATH / "arialbd.ttf"))
 
 ppt = Presentation()
 ppt.slide_width, ppt.slide_height = Pt(W), Pt(H)
-ppt.core_properties.title = "PRISM | Hero Housing Fintech Challenge"
+ppt.core_properties.title = "PRISM AI Property Valuation Agent | Hero Housing Fintech Challenge"
 ppt.core_properties.subject = "Problem Statement 1 — AI-Powered Digital Property Valuation Engine for India"
 ppt.core_properties.author = "Team PRISM"
 pdf = Canvas(str(OUT / f"{NAME}.pdf"), pagesize=(W, H))
@@ -122,7 +122,7 @@ rect(54, 92, 256, 25, DARK2)
 txt("PROBLEM STATEMENT 01   /   SOLUTION DECK", 65, 98, 241, 9, LIME, True)
 txt("PRISM", 48, 136, 490, 88, WHITE, True)
 txt("Property Research, Intelligence & Smart Modeling", 56, 241, 510, 17, SOFT)
-txt("An auditable property\nvaluation engine for India", 55, 291, 554, 32, WHITE, True, 39)
+txt("An AI property valuation\nagent for India", 55, 291, 554, 32, WHITE, True, 39)
 txt("Pune apartment pilot  /  Team PRISM", 56, 428, 524, 15, LIME, True)
 for i, (label, body) in enumerate([
     ("01   EVIDENCE", "Unify fragmented property data"),
@@ -145,19 +145,22 @@ card(635, 154, 271, 205, "COMMERCIAL DESIGN", "Separate model",
      "Start with office and retail. Use lease comps, vacancy and cap rates. Cross-check stabilized net operating income ÷ cap rate against sale comps.")
 banner(407, "Success means faster lender review with measurable valuation error and clear evidence gaps.")
 
-start("02   /   SOLUTION ARCHITECTURE", "The MCP makes evidence reusable",
-      "A property request becomes a source-linked evidence package for valuation and lender review.", dark=True)
+start("02   /   SOLUTION ARCHITECTURE", "The agent uses its own MCP",
+      "PRISM turns a property request into an evidence-backed valuation and review recommendation.", dark=True)
+rect(54, 157, 852, 38, DARK2)
+txt("PRISM AI AGENT   /   PROPOSED ORCHESTRATION", 70, 169, 315, 11, LIME, True)
+txt("Chooses tools, checks evidence gaps and decides when to escalate.", 396, 166, 497, 14, WHITE)
 steps = [
     ("INPUT", "Property request", "Address, property type, area basis and case date."),
-    ("WORKING PROTOTYPE", "Evidence MCP", "Discover sources, normalize records, flag conflicts and select comparable candidates."),
+    ("WORKING TOOL LAYER", "Custom MCP", "Discover sources, normalize records, flag conflicts and select comparable candidates."),
     ("PROPOSED", "Laya + valuation", "Score evidence, estimate value from verified comps and calibrate a range."),
     ("PROPOSED", "Review report", "Return factors, source IDs, risk flags and a routing recommendation."),
 ]
 for i, (label, title, body) in enumerate(steps):
     x = 54 + i * 219
-    card(x, 174, 195, 195, label, title, body, dark=True)
+    card(x, 209, 195, 181, label, title, body, dark=True)
     if i < 3:
-        txt("→", x + 196, 258, 22, 18, LIME, True)
+        txt("→", x + 196, 291, 22, 18, LIME, True)
 banner(412, "Go MCP   /   Rust reconciliation   /   Python bridge + geodata   /   Next.js / React viewer", dark=True)
 
 start("02   /   COMBINE DATA SOURCES", "Keep each source in its proper role",
@@ -180,8 +183,8 @@ for i, values in enumerate(rows):
         txt(value, x, y + 8, w, 13, TEAL if j == 2 else INK, j != 1, 16)
 txt("Match by locality and project, then check unit identifiers, area basis and dates. Keep unresolved records separate.", 54, 439, 852, 15, TEAL, True)
 
-start("02   /   WORKING PROTOTYPE", "What the Baner run proved",
-      "The MCP discovered sources and ingested individual listing pages through local Firecrawl and Go parsing.", dark=True)
+start("02   /   WORKING TOOL LAYER", "What the Baner run proved",
+      "PRISM’s custom MCP discovered and ingested individual listings through local Firecrawl and Go parsing.", dark=True)
 for x, value, label, body in [
     (54, "14", "MCP TOOLS", "Discovery, ingestion, geocoding, evidence lookup, reconciliation and comp selection."),
     (344, "10", "REAL LISTINGS INGESTED", "One portal. Each listing retained an asking price and a retrievable source snapshot."),
