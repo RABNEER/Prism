@@ -1,0 +1,50 @@
+[
+  {
+    "id": "",
+    "state": "MH",
+    "district": "Pune",
+    "locality": "Synthetic Locality A",
+    "property_type": "apartment",
+    "entity_level": "project",
+    "address": "Synthetic Project A, Synthetic Locality A, Pune, Maharashtra",
+    "project": "Synthetic Project A",
+    "provider_record_id": "fixture-mh-001",
+    "source": {"id": "synthetic-demo", "name": "PRISM synthetic development fixture", "url": "https://example.org/prism/fixtures/mh-001", "access_reference": "Artificial development record created for protocol tests; no real property or source claim"},
+    "category": "project",
+    "data_mode": "synthetic_fixture",
+    "published_date": "2026-01-01",
+    "retrieved_at": "2026-11-07T00:00:00Z",
+    "warnings": ["SYNTHETIC: not a real property or valuation label"]
+  },
+  {
+    "id": "",
+    "state": "KA",
+    "district": "Bengaluru Urban",
+    "locality": "Synthetic Locality B",
+    "property_type": "office",
+    "entity_level": "building",
+    "address": "Synthetic Office B, Synthetic Locality B, Karnataka",
+    "provider_record_id": "fixture-ka-001",
+    "source": {"id": "synthetic-demo", "name": "PRISM synthetic development fixture", "url": "https://example.org/prism/fixtures/ka-001", "access_reference": "Artificial development record created for protocol tests; no real property or source claim"},
+    "category": "listing",
+    "data_mode": "synthetic_fixture",
+    "published_date": "2026-01-01",
+    "retrieved_at": "2026-11-07T00:00:00Z",
+    "warnings": ["SYNTHETIC: not a real property or valuation label"]
+  },
+  {
+    "id": "",
+    "state": "RJ",
+    "district": "Jaipur",
+    "locality": "Synthetic Village C",
+    "property_type": "plot",
+    "entity_level": "locality",
+    "address": "Synthetic Village C, Rajasthan (rural routing fixture)",
+    "provider_record_id": "fixture-rj-001",
+    "source": {"id": "synthetic-demo", "name": "PRISM synthetic development fixture", "url": "https://example.org/prism/fixtures/rj-001", "access_reference": "Artificial development record created for protocol tests; no real property or source claim"},
+    "category": "geographic",
+    "data_mode": "synthetic_fixture",
+    "retrieved_at": "2026-11-07T00:00:00Z",
+    "warnings": ["SYNTHETIC: not a real village or property record"]
+  }
+]

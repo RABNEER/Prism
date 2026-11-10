@@ -1,0 +1,79 @@
+name: prism-firecrawl
+services:
+  api:
+    image: ghcr.io/firecrawl/firecrawl@sha256:547e2a78fcb33c7c0908b55e12f47d47683f4025a2a49559a133f58007606024
+    init: true
+    command: node dist/src/harness.js --start-docker
+    ports: ["127.0.0.1:3002:3002"]
+    extra_hosts: ["host.docker.internal:host-gateway"]
+    environment:
+      HOST: 0.0.0.0
+      PORT: 3002
+      ENV: local
+      USE_DB_AUTHENTICATION: "false"
+      REDIS_URL: redis://redis:6379
+      REDIS_RATE_LIMIT_URL: redis://redis:6379
+      PLAYWRIGHT_MICROSERVICE_URL: http://playwright-service:3000/scrape
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: local-prism-only
+      POSTGRES_DB: postgres
+      POSTGRES_HOST: nuq-postgres
+      POSTGRES_PORT: 5432
+      NUQ_RABBITMQ_URL: amqp://rabbitmq:5672
+      NUQ_BACKEND: pg
+      NUM_WORKERS_PER_QUEUE: 1
+      NUQ_WORKER_COUNT: 1
+      CRAWL_CONCURRENT_REQUESTS: 1
+      MAX_CONCURRENT_JOBS: 1
+      BROWSER_POOL_SIZE: 1
+      HARNESS_STARTUP_TIMEOUT_MS: 120000
+      OPENAI_API_KEY: ""
+    depends_on:
+      redis: {condition: service_started}
+      playwright-service: {condition: service_started}
+      rabbitmq: {condition: service_healthy}
+      nuq-postgres: {condition: service_healthy}
+    mem_limit: 2g
+    cpus: 2
+    logging: &logging
+      driver: json-file
+      options: {max-size: 10m, max-file: "2"}
+  playwright-service:
+    image: ghcr.io/firecrawl/playwright-service@sha256:eacaf2c256a6ff7fd1869e470d2969e97a037ff6c75ac01d38784d138a33f8eb
+    environment: {PORT: 3000, MAX_CONCURRENT_PAGES: 1, BLOCK_MEDIA: "true"}
+    mem_limit: 768m
+    cpus: 1
+    security_opt: ["no-new-privileges:true"]
+    cap_drop: [ALL]
+    logging: *logging
+  redis:
+    image: redis:7.4-alpine
+    command: redis-server --appendonly yes --maxmemory 96mb --maxmemory-policy noeviction
+    volumes: ["redis-data:/data"]
+    mem_limit: 160m
+    logging: *logging
+  rabbitmq:
+    image: rabbitmq:3.13-alpine
+    volumes: ["rabbit-data:/var/lib/rabbitmq"]
+    healthcheck:
+      test: [CMD, rabbitmq-diagnostics, -q, check_running]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+    mem_limit: 384m
+    logging: *logging
+  nuq-postgres:
+    image: ghcr.io/firecrawl/nuq-postgres@sha256:d719b36160eac2fcbe16dc7e7360ddb9c82c40ea5da183d07bf4a755c6a0b2ae
+    environment: {POSTGRES_USER: postgres, POSTGRES_PASSWORD: local-prism-only, POSTGRES_DB: postgres}
+    volumes: ["postgres-data:/var/lib/postgresql/data"]
+    healthcheck:
+      test: [CMD-SHELL, pg_isready -U postgres -d postgres]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+    mem_limit: 512m
+    logging: *logging
+volumes:
+  redis-data:
+  rabbit-data:
+  postgres-data:
